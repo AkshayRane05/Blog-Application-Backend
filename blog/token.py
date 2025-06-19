@@ -1,10 +1,15 @@
 from datetime import datetime, timedelta, timezone
 import jwt
 from jwt.exceptions import InvalidTokenError
-
+from dotenv import load_dotenv
 from blog import schemas
+import os
 
-SECRET_KEY = "4da8dfe07e5bb254927cc3f97e7909ae0bef38f00b23e71e3a7922ff6bec3e32"
+load_dotenv()
+
+SECRET_KEY: str = os.getenv("SECRET_KEY") or ""
+if not SECRET_KEY:
+    raise ValueError("SECRET_KEY environment variable is not set or is empty")
 ALGORITHM = "HS256"
 ACCESS_TOKEN_EXPIRE_MINUTES = 30
 
